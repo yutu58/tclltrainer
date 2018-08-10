@@ -109,7 +109,7 @@
     <input type = "button" onclick="PinwheelP()" id="checkPinwheelP" value="Pinwheel+" class="checkboxFalse">
     	</div>
       	<div class ="box">
-    <input type = "button" onclick="PiWa3()" id="checkPiWa3" value="Pi + Wat (3cats)" class = "checkboxFalse">
+    <input type = "button" onclick="TFP()" id="checkTFP" value="Two-Face+" class = "checkboxFalse">
     	</div>
         <div class ="box">
     <input type = "button" onclick="PiX3()" id="checkPiX3" value ="Pi + X (3cats)" class = "checkboxFalse">
@@ -133,14 +133,12 @@
 <script>
 //remove the sets that aren't changed yet
 function removeothersets() {
-    document.getElementById("checkPiWa3").style.display = "none";
     document.getElementById("checkPiX3").style.display = "none";
     document.getElementById("checkPiU").style.display = "none";
     document.getElementById("checkL5C").style.display = "none";
     document.getElementById("checkOCC").style.display = "none";
     document.getElementById("checkBC").style.display = "none";
 }
-
     var status = 0; 
     var time = 0;
     var timertrue = 0;
@@ -249,9 +247,9 @@ var algsPinwheelP = ['F\' U2 R2 F2 U\' F\' R U\' R F\'', 'R U\' F R2 F2 U\' F R\
 var NoAlgsPinwheelP = 6;
 var NPinwheelP = 0;
  
-var algsPiWa3 = ['U\' R\' L R\' L\' U\' R\' B\'', 'R\' L\' R\' B\' U\' R L\' U\'', 'L\' B R U\' R\' B U\' R\' B L\' U\'', 'R\' L U L\' R L U\' L\' R\' B\' R B'];
-var NoAlgsPiWa3 = 4;
-var NPiWa3 = 0;
+var algsTFP = ['F\' R2 F2 U\' R U F2 R2 U\' F', 'R U2 R F U\' F R F2 R2', 'R\' U\' F\' U R2 F2 U2 R F\'', 'F2 R\' U\' F\' U R F2 U2 F', 'F\' R\' U\' F2 R\' U\' F2 U\' R\' F\'', 'R U2 F R\' F\' R\' F\' U2 F', 'R\' U2 F\' R U2 F\' U R\' F2', 'R2 U R\' F R F\' R\' U\' R'];
+var NoAlgsTFP = 8;
+var NTFP = 0;
  
 var algsPiX3 = ['L\' B R\' L\' U\' B\' R L\' R', 'R\' L R\' L\' R B\' U\' L U\'', 'B L U\' L\' R B U\' B U', 'U\' R\' L U L\' U\' B U\' B\''];
 var NoAlgsPiX3 = 4;
@@ -260,7 +258,6 @@ var NPiX3 = 0;
 var algsPiU = ['U B\' L R\' L\' B U B\'', 'B U\' B\' L R L\' B U\'', 'L\' U B\' R U R\' L\' B', 'B\' L R U\' R\' B U\' L', 'L\' B R\' B L U\' B U\'', 'U B\' U L\' B\' R B\' L', 'U L\' R B\' U\' R B L\'', 'L B\' R\' U B R\' L U\'', 'U B\' L R U L\' R\' L U\' L\'', 'L\' U\' B U\' L R L R\' L\' R', 'R\' L U L\' B U\' B\' U', 'L U\' L\' R U\' B U B\'']; 
 var NoAlgsPiU = 12;
 var NPiU = 0;
-
 var algsL5C = ['B L U\' R L B\' R\' U L\' R\'', 'L U\' R L B\' R\' U L\' R\' B', 'R\' L U L\' B\' R B R B\' R\' B L U\' L\'', 'L U L\' B\' R B R\' B\' R\' B L U\' L\' R', 'R\' L\' B U B\' L R B\' R B R\' U\'', 'U R B\' R\' B R\' L\' B U\' B\' L R'];
 var NoAlgsL5C = 6;
 var NL5C = 0;
@@ -321,15 +318,15 @@ document.getElementById("checkPinwheelP").setAttribute('class', 'checkboxFalse')
 }
 }
  
-function PiWa3() {
-NPiWa3 += 1;
-if (NPiWa3 > 1) {
-NPiWa3 = 0;
+function TFP() {
+NTFP += 1;
+if (NTFP > 1) {
+NTFP = 0;
 }
-if (NPiWa3 == 1) {
-document.getElementById("checkPiWa3").setAttribute('class', 'checkboxTrue')
-} else if (NPiWa3 == 0) {
-document.getElementById("checkPiWa3").setAttribute('class', 'checkboxFalse')
+if (NTFP == 1) {
+document.getElementById("checkTFP").setAttribute('class', 'checkboxTrue')
+} else if (NTFP == 0) {
+document.getElementById("checkTFP").setAttribute('class', 'checkboxFalse')
 }
 }
  
@@ -392,21 +389,18 @@ document.getElementById("checkBC").setAttribute('class', 'checkboxTrue')
 document.getElementById("checkBC").setAttribute('class', 'checkboxFalse')
 }
 }
-
 var PAUF;
 var PAUFs = ['U ', 'U\' ', 'U2 ', ''];
 function randomPAUF() {
 var randomNumberPAUF = Math.floor(Math.random() *4);
 PAUF = PAUFs[randomNumberPAUF]
 }
-
 var AAUF;
 var AAUFs = [' U', ' U\'', ' U2', ''];
 function randomAAUF() {
 var randomNumberAAUF = Math.floor(Math.random() *4);
 AAUF = AAUFs[randomNumberAAUF]
 }
-
 function AUF() {
 if (situ !== 'select a set') {
 document.getElementById("scramble").innerHTML = PAUF + situ + AAUF
@@ -415,13 +409,11 @@ else {
 document.getElementById("scramble").innerHTML = situ
 }
 }
-
 function generateByCase() {
 		lastScramble = document.getElementById("scramble").innerHTML;
 		var randomNumberByCase = Math.floor(Math.random() *NoTotalAlgs);
         randomPAUF();
         randomAAUF();
-
 		if (randomNumberByCase < NoAlgsHammerP && NHammerP == 1) {
    		var randomNumberHammerP = Math.floor(Math.random() *NoAlgsHammerP);
         situ = algsHammerP[randomNumberHammerP];
@@ -442,9 +434,9 @@ function generateByCase() {
         situ = algsPinwheelP[randomNumberPinwheelP];
         }
         
-        else if (randomNumberByCase >= 24 && randomNumberByCase < 28 && NPiWa3 == 1) {
-        var randomNumberPiWa3 = Math.floor(Math.random() *NoAlgsPiWa3);
-        situ = algsPiWa3[randomNumberPiWa3];
+        else if (randomNumberByCase >= 24 && randomNumberByCase < 28 && NTFP == 1) {
+        var randomNumberTFP = Math.floor(Math.random() *NoAlgsTFP);
+        situ = algsTFP[randomNumberTFP];
         }
         
         else if (randomNumberByCase >=28 && randomNumberByCase < 32 && NPiX3 == 1) {
@@ -472,7 +464,7 @@ function generateByCase() {
         situ = algsBC[randomNumberBC];
         }
         
-        else if (NHammerP == 0 && NSpaceshipP == 0 && NStolleryP == 0 && NPinwheelP == 0 && NPiWa3 == 0 && NPiX3 == 0 && NPiU == 0 && NL5C == 0 && NOCC == 0 && NBC == 0) {
+        else if (NHammerP == 0 && NSpaceshipP == 0 && NStolleryP == 0 && NPinwheelP == 0 && NTFP == 0 && NPiX3 == 0 && NPiU == 0 && NL5C == 0 && NOCC == 0 && NBC == 0) {
        	situ = 'select a set';
         }
         
@@ -508,9 +500,9 @@ function generateBySet() {
         situ = algsPinwheelP[randomNumberPinwheelP];
         }
         
-        else if (randomNumberBySet == 4 && NPiWa3 == 1) {
-        var randomNumberPiWa3 = Math.floor(Math.random() *NoAlgsPiWa3);
-        situ = algsPiWa3[randomNumberPiWa3];
+        else if (randomNumberBySet == 4 && NTFP == 1) {
+        var randomNumberTFP = Math.floor(Math.random() *NoAlgsTFP);
+        situ = algsTFP[randomNumberTFP];
         }
         
         else if (randomNumberBySet == 5 && NPiX3 == 1) {
@@ -538,7 +530,7 @@ function generateBySet() {
         situ = algsBC[randomNumberBC];
         }
         
-        else if (NHammerP == 0 && NSpaceshipP == 0 && NStolleryP == 0 && NPinwheelP == 0 && NPiWa3 == 0 && NPiX3 == 0 && NPiU == 0 && NL5C == 0 && NOCC == 0 && NBC == 0) {
+        else if (NHammerP == 0 && NSpaceshipP == 0 && NStolleryP == 0 && NPinwheelP == 0 && NTFP == 0 && NPiX3 == 0 && NPiU == 0 && NL5C == 0 && NOCC == 0 && NBC == 0) {
         situ = 'select a set';
         }
         
