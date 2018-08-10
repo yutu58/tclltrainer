@@ -1,0 +1,527 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style type="text/css">
+			body {
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+			.container {
+				width: 80%;
+				margin: auto;
+			}
+			.sans-serif {
+				font-family: 'sans-serif', arial, serif;
+			}
+			.titel {
+				height: 30px;
+				vertical-align: middle;
+				line-height: 30px;
+				text-align: center;
+				border: 1px solid #ccc;
+				background-color: rgba(255,255,255,0.5);
+			}
+			input {
+				width: 75%;
+				height: 30px;
+				margin: 5px 0px 15px 0px;
+			}
+            
+            input.switchType {
+           		width: 50%;
+				height: 30px;
+				margin: 5px 0px 15px 0px;
+			}
+            
+            input.help {
+            	width: 5%;
+				height: 30px;
+				margin: 5px 0px 15px 0px;
+			}
+            
+			.footer {
+            	position: aboslute;
+                bottom: 0px;
+				width: 100%;
+				height: 50px;
+				background: #bbb;
+				font-size: 20px;
+				vertical-align: middle;
+				line-height: 50px;
+				text-align: center;
+                
+			}
+			
+			.box {
+           			text-align: center; 
+      			}
+                
+            .checkboxFalse {
+            		text-align: center;
+                    color: red;
+                }    
+                
+            .checkboxTrue { 
+            		text-align: center;
+                    color: green;
+				}
+                
+			.type {
+            		text-align: center;
+                    vertical-align: middle;
+                    width: 100%
+				}
+        
+		</style>
+	</head>
+	<body onload="removeothersets()">
+		<div class="container">
+			<h3>Press Space to generate TCLL cases for a your selected sets!</h3>
+			<h3>Notation: WCA scramble notation</h3>
+		</div>
+        
+		<div class="type">
+        <input type = "button" onclick="switchType()" id="switchScrambleType" value="Generate by case*" class="switchType">
+        <input type = "button" onclick="alert('\'Generate by case\' will give every case an equal chance of being generated\n\'Generate by set\' will give every set you selected an equal chance.')" id="help" value="?" class="help">
+        </div>
+        
+        <div class="box" "sans-serif" id="scramble">
+        </div>
+	
+			<div class="box" "sans-serif">
+	<h1 id="timerLabel">0.000</h1>
+    <input hidden type="button" onclick="start()" id="startBtn">
+    		</div>
+            
+         <div class="box">
+	<input type = "button" onclick="HammerP()" id="checkHammerP" value="Hammer+" class="checkboxFalse">
+		 </div>
+         <div class ="box">
+    <input type = "button" onclick="SpaceshipP()" id="checkSpaceshipP" value="Spaceship+" class = "checkboxFalse">
+    	</div>
+         <div class ="box">
+	<input type = "button" onclick="StolleryP()" id="checkStolleryP" value="Stollery+" class="checkboxFalse">
+    	 </div>
+         <div class ="box">
+    <input type = "button" onclick="PinwheelP()" id="checkPinwheelP" value="Pinwheel+" class="checkboxFalse">
+    	</div>
+      	<div class ="box">
+    <input type = "button" onclick="PiWa3()" id="checkPiWa3" value="Pi + Wat (3cats)" class = "checkboxFalse">
+    	</div>
+        <div class ="box">
+    <input type = "button" onclick="PiX3()" id="checkPiX3" value ="Pi + X (3cats)" class = "checkboxFalse">
+    	</div>
+       	<div class ="box">
+    <input type = "button" onclick="PiU()" id="checkPiU" value="Pi + U (Allcats)" class = "checkboxFalse">
+    	</div>
+        <div class ="box">
+    <input type = "button" onclick="L5C()" id="checkL5C" value="Last 5 Centers" class = "checkboxFalse">
+    	</div>
+        <div class ="box">
+    <input type = "button" onclick="OCC()" id="checkOCC" value="Other Center Cases" class = "checkboxFalse">
+    	</div>
+        <div class ="box">
+    <input type = "button" onclick="BC()" id="checkBC" value="Bad Cases" class = "checkboxFalse">
+    	</div>
+        <div class="footer">
+				<p>2018, MattheoDW</p>
+			</div>
+            </body>
+<script>
+//remove the sets that aren't changed yet
+function removeothersets() {
+    document.getElementById("checkPiWa3").style.display = "none";
+    document.getElementById("checkPiX3").style.display = "none";
+    document.getElementById("checkPiU").style.display = "none";
+    document.getElementById("checkL5C").style.display = "none";
+    document.getElementById("checkOCC").style.display = "none";
+    document.getElementById("checkBC").style.display = "none";
+}
+
+    var status = 0; 
+    var time = 0;
+    var timertrue = 0;
+      
+    function start(){
+        status = 1;
+        d1 = new Date();
+        newStartTime = d1.getTime();
+        document.getElementById("startBtn").disabled = true;
+        document.getElementById('timerLabel').innerHTML = 'timing';
+        
+    }
+    function stop(){
+    	d1 = new Date();
+        document.getElementById('timerLabel').innerHTML = (d1.getTime() - newStartTime) / 1000;
+        status = 0;
+        document.getElementById("startBtn").disabled = false;
+    }
+    function reset(){
+        status = 0;
+        time = 0;
+        document.getElementById('timerLabel').innerHTML = '0.000';
+        document.getElementById("startBtn").disabled = false;
+    }
+    
+    
+    
+    document.onkeyup = function(event) { 
+        if (event) {
+            if (event.keyCode == 32 && timertrue == 1) {
+                if (status == 0) {
+                	reset();
+                    start();
+                }
+ 
+                 if (timertrue == 1) {
+                timertrue = 2;
+                } 
+               
+            }
+        } 
+    };
+    
+    document.onkeydown = function(event) { 
+        if (event) {
+            if (event.keyCode == 32) {
+                if(status == 1 && typeSwitch == 0) {
+                    stop();
+                    generateByCase();
+                } else if(status == 1 && typeSwitch == 1) {
+                    stop();
+                    generateBySet();
+                }
+ 				if (timertrue == 0) {
+                timertrue = 1;
+                }
+                if (timertrue == 2) {
+                timertrue = 0;
+                } 
+            }
+            if (event.keyCode == 39) {
+                if(typeSwitch == 0) {
+                    generateByCase();
+                } else if(typeSwitch == 1) {
+                    generateBySet();
+                }
+            }
+            if (event.keyCode == 37) {
+                previousScramble();
+            }
+        } 
+    };
+    
+    
+    
+    
+var typeSwitch = 0
+function switchType(){
+if (typeSwitch == 0) {
+typeSwitch = 1
+document.getElementById("switchScrambleType").setAttribute('value', 'Generate by Set*')
+} else if (typeSwitch == 1) {
+typeSwitch = 0
+document.getElementById("switchScrambleType").setAttribute('value', 'Generate by Case*')
+}
+}
+    
+    
+var NoTotalAlgs = 180;    
+var NoTotalSets = 16; 
+var lastScramble;
+   
+var algsHammerP = ['F R\' F2 R\' F\' R F R2', 'R F2 U2 R2 U R\' U F\'', 'F\' R\' U2 R\' F\' U2 R F\' R\'', 'F2 U2 R\' F R2 U\' R\' U\' F2', 'R2 U R2 U\' R F R F\'', 'R F U R2 U\' R\' F2 U F R2', 'F U2 R\' F\' R F R\' F R', 'F U2 F R F2 R F2 R\' F\'', 'F2 U\' F2 U\' R\' U2 F2 R\'', 'R U\' R2 F U2 F\' U2 F\' R\'', 'R\' U R2 U F R F\' R2', 'R U2 F R\' F\' R F\' U\' F R\''];
+var NoAlgsHammerP = 12; 
+var NHammerP = 0;
+
+var algsSpaceshipP = ['R U\' R U2 R U\' R U\' R2', 'F2 U\' R U2 F R F\' R\' F', 'F2 R\' F\' R2 U R\' F2 U F2', 'R U2 F\' R\' F\' U\' R U\' F', 'R F2 R\' U2 R F\' R\' F\' R', 'R F\' R\' F\' U R\' U2 R F\'', 'R\' F R F\' R2 U R2 U\' R2', 'F R U2 R2 F U\' R2 U R', 'R2 U R\' U2 R\' F\' U2 F R', 'R2 U2 R\' F U2 R\' U\' R\' F2', 'F U F R\' U R U2 R F R2', 'R2 F R\' F\' R F\' R2 U2 F\''];
+var NoAlgsSpaceshipP = 12;
+var NSpaceshipP = 0;
+
+var algsStolleryP = ['F U\' R F R2 U2 F\' R\' F', 'F\' R U\' R\' F2 U2 R U R\'', 'R F\' R\' U R U F R2', 'R2 F R\' F\' R2 U2 R U R', 'R U\' F2 U R\' U\' F2 U\' R\'', 'R2 U\' F R2 F\' U\' R2 U\' R\'', 'F R U2 F U2 F\' U R\'', 'R F U2 R2 F R U2 R', 'R2 F2 R\' U F\' R U F2 R\'', 'F U2 F R F2 U2 R F', 'R F\' R U F U F\' R2', 'R U2 R F2 U R\' U\' F2 R2'];
+var NoAlgsStolleryP = 12;
+var NStolleryP = 0;
+ 
+var algsPinwheelP = ['F\' U2 R2 F2 U\' F\' R U\' R F\'', 'R U\' F R2 F2 U\' F R\' U\' R', 'R\' U2 R F\' R2 U2 R F\' R\'', 'R\' U2 R\' U2 R2 F R\' F\' R\'', 'R U\' F R2 U\' F R F2 R\'', 'R U\' F U2 F R2 U2 F R'];
+var NoAlgsPinwheelP = 6;
+var NPinwheelP = 0;
+ 
+var algsPiWa3 = ['U\' R\' L R\' L\' U\' R\' B\'', 'R\' L\' R\' B\' U\' R L\' U\'', 'L\' B R U\' R\' B U\' R\' B L\' U\'', 'R\' L U L\' R L U\' L\' R\' B\' R B'];
+var NoAlgsPiWa3 = 4;
+var NPiWa3 = 0;
+ 
+var algsPiX3 = ['L\' B R\' L\' U\' B\' R L\' R', 'R\' L R\' L\' R B\' U\' L U\'', 'B L U\' L\' R B U\' B U', 'U\' R\' L U L\' U\' B U\' B\''];
+var NoAlgsPiX3 = 4;
+var NPiX3 = 0;
+ 
+var algsPiU = ['U B\' L R\' L\' B U B\'', 'B U\' B\' L R L\' B U\'', 'L\' U B\' R U R\' L\' B', 'B\' L R U\' R\' B U\' L', 'L\' B R\' B L U\' B U\'', 'U B\' U L\' B\' R B\' L', 'U L\' R B\' U\' R B L\'', 'L B\' R\' U B R\' L U\'', 'U B\' L R U L\' R\' L U\' L\'', 'L\' U\' B U\' L R L R\' L\' R', 'R\' L U L\' B U\' B\' U', 'L U\' L\' R U\' B U B\'']; 
+var NoAlgsPiU = 12;
+var NPiU = 0;
+
+var algsL5C = ['B L U\' R L B\' R\' U L\' R\'', 'L U\' R L B\' R\' U L\' R\' B', 'R\' L U L\' B\' R B R B\' R\' B L U\' L\'', 'L U L\' B\' R B R\' B\' R\' B L U\' L\' R', 'R\' L\' B U B\' L R B\' R B R\' U\'', 'U R B\' R\' B R\' L\' B U\' B\' L R'];
+var NoAlgsL5C = 6;
+var NL5C = 0;
+ 
+var algsOCC = ['L\' U\' L U L R L\' R\'', 'R\' L\' U\' L U L R L\'', 'R L\' U\' L U L R L\' R', 'R L\' B R\' U\' B U\' B', 'L\' U L B\' L\' B R U\'', 'U L\' U L B\' L\' B R U', 'U\' R\' B\' L B L\' U\' L U\'', 'L\' U L B\' U\' R U B\' R\' L R B\''];
+var NoAlgsOCC = 6;
+var NOCC = 0;
+ 
+var algsBC = ['R\' L U L B\' R\' L R B L R\'', 'R L\' B\' R\' L\' R B L\' U\' L\' R', 'R L\' R\' B L\' U\' L U B\' L', 'R\' L\' B R\' B U\' R\' L\' U\' B L', 'R\' L U B R B U\' L U\'', 'R\' L\' B R\' B U L\' U L\' U\' B L', 'R\' L\' B U R L\' R\' B\' L R', 'U L B\' U\' L\' U R B L\' U\''];
+var NoAlgsBC = 8;
+var NBC = 0;
+ 
+function HammerP() {
+NHammerP += 1;
+if (NHammerP > 1) {
+NHammerP = 0;
+}
+if (NHammerP == 1) {
+document.getElementById("checkHammerP").setAttribute('class', 'checkboxTrue')
+} else if (NHammerP == 0) {
+document.getElementById("checkHammerP").setAttribute('class', 'checkboxFalse')
+}
+}
+ 
+function SpaceshipP() {
+NSpaceshipP += 1;
+if (NSpaceshipP > 1) {
+NSpaceshipP = 0;
+}
+if (NSpaceshipP == 1) {
+document.getElementById("checkSpaceshipP").setAttribute('class', 'checkboxTrue')
+} else if (NSpaceshipP == 0) {
+document.getElementById("checkSpaceshipP").setAttribute('class', 'checkboxFalse')
+}
+} 
+ 
+function StolleryP() {
+NStolleryP += 1;
+if (NStolleryP > 1) {
+NStolleryP = 0;
+}
+if (NStolleryP == 1) {
+document.getElementById("checkStolleryP").setAttribute('class', 'checkboxTrue')
+} else if (NStolleryP == 0) {
+document.getElementById("checkStolleryP").setAttribute('class', 'checkboxFalse')
+}
+}
+ 
+function PinwheelP() {
+NPinwheelP += 1;
+if (NPinwheelP > 1) {
+NPinwheelP = 0;
+}
+if (NPinwheelP == 1) {
+document.getElementById("checkPinwheelP").setAttribute('class', 'checkboxTrue')
+} else if (NPinwheelP == 0) {
+document.getElementById("checkPinwheelP").setAttribute('class', 'checkboxFalse')
+}
+}
+ 
+function PiWa3() {
+NPiWa3 += 1;
+if (NPiWa3 > 1) {
+NPiWa3 = 0;
+}
+if (NPiWa3 == 1) {
+document.getElementById("checkPiWa3").setAttribute('class', 'checkboxTrue')
+} else if (NPiWa3 == 0) {
+document.getElementById("checkPiWa3").setAttribute('class', 'checkboxFalse')
+}
+}
+ 
+function PiX3() {
+NPiX3 += 1;
+if (NPiX3 > 1) {
+NPiX3 = 0;
+}
+if (NPiX3 == 1) {
+document.getElementById("checkPiX3").setAttribute('class', 'checkboxTrue')
+} else if (NPiX3 == 0) {
+document.getElementById("checkPiX3").setAttribute('class', 'checkboxFalse')
+}
+}
+ 
+function PiU() {
+NPiU += 1;
+if (NPiU > 1) {
+NPiU = 0;
+}
+if (NPiU == 1) {
+document.getElementById("checkPiU").setAttribute('class', 'checkboxTrue')
+} else if (NPiU == 0) {
+document.getElementById("checkPiU").setAttribute('class', 'checkboxFalse')
+}
+} 
+ 
+function L5C() {
+NL5C += 1;
+if (NL5C > 1) {
+NL5C = 0;
+}
+if (NL5C == 1) {
+document.getElementById("checkL5C").setAttribute('class', 'checkboxTrue')
+} else if (NL5C == 0) {
+document.getElementById("checkL5C").setAttribute('class', 'checkboxFalse')
+}
+}
+ 
+function OCC() {
+NOCC += 1;
+if (NOCC > 1) {
+NOCC = 0;
+}
+if (NOCC == 1) {
+document.getElementById("checkOCC").setAttribute('class', 'checkboxTrue')
+} else if (NOCC == 0) {
+document.getElementById("checkOCC").setAttribute('class', 'checkboxFalse')
+}
+}
+ 
+function BC() {
+NBC += 1;
+if (NBC > 1) {
+NBC = 0;
+}
+if (NBC == 1) {
+document.getElementById("checkBC").setAttribute('class', 'checkboxTrue')
+} else if (NBC == 0) {
+document.getElementById("checkBC").setAttribute('class', 'checkboxFalse')
+}
+}
+function generateByCase() {
+		lastScramble = document.getElementById("scramble").innerHTML
+		var randomNumberByCase = Math.floor(Math.random() *NoTotalAlgs)
+        
+		if (randomNumberByCase < NoAlgsHammerP && NHammerP == 1) {
+   		var randomNumberHammerP = Math.floor(Math.random() *NoAlgsHammerP);
+        document.getElementById("scramble").innerHTML = algsHammerP[randomNumberHammerP];
+        }
+        
+        else if (randomNumberByCase >= NoAlgsHammerP && randomNumberByCase < NoAlgsHammerP+NoAlgsSpaceshipP && NSpaceshipP == 1) {
+        var randomNumberSpaceshipP = Math.floor(Math.random() *NoAlgsSpaceshipP);
+        document.getElementById("scramble").innerHTML = algsSpaceshipP[randomNumberSpaceshipP];
+        }
+        
+        else if (randomNumberByCase >= NoAlgsHammerP+NoAlgsSpaceshipP && randomNumberByCase < NoAlgsHammerP+NoAlgsSpaceshipP+NoAlgsStolleryP && NStolleryP == 1) {
+        var randomNumberStolleryP = Math.floor(Math.random() *NoAlgsStolleryP);
+        document.getElementById("scramble").innerHTML = algsStolleryP[randomNumberStolleryP];
+        }
+        
+        else if (randomNumberByCase >= 20 && randomNumberByCase < 24 && NPinwheelP == 1) {
+        var randomNumberPinwheelP = Math.floor(Math.random() *NoAlgsPinwheelP);
+        document.getElementById("scramble").innerHTML = algsPinwheelP[randomNumberPinwheelP];
+        }
+        
+        else if (randomNumberByCase >= 24 && randomNumberByCase < 28 && NPiWa3 == 1) {
+        var randomNumberPiWa3 = Math.floor(Math.random() *NoAlgsPiWa3);
+        document.getElementById("scramble").innerHTML = algsPiWa3[randomNumberPiWa3];
+        }
+        
+        else if (randomNumberByCase >=28 && randomNumberByCase < 32 && NPiX3 == 1) {
+		var randomNumberPiX3 = Math.floor(Math.random() * NoAlgsPiX3);
+		document.getElementById("scramble").innerHTML = algsPiX3[randomNumberPiX3];
+		}
+        
+        else if (randomNumberByCase >= 32 && randomNumberByCase < 44 && NPiU == 1) {
+        var randomNumberPiU = Math.floor(Math.random() *NoAlgsPiU);
+        document.getElementById("scramble").innerHTML = algsPiU[randomNumberPiU];
+        }
+        
+        else if (randomNumberByCase >= 44 && randomNumberByCase < 50 && NL5C == 1) {
+        var randomNumberL5C = Math.floor(Math.random() *NoAlgsL5C);
+        document.getElementById("scramble").innerHTML = algsL5C[randomNumberL5C];
+        }
+        
+        else if (randomNumberByCase >= 50 && randomNumberByCase < 56 && NOCC == 1) {
+        var randomNumberOCC = Math.floor(Math.random() *NoAlgsOCC);
+        document.getElementById("scramble").innerHTML = algsOCC[randomNumberOCC];
+        }
+        
+        else if (randomNumberByCase >= 56 && randomNumberByCase < 64 && NBC == 1) {
+        var randomNumberBC = Math.floor(Math.random() *NoAlgsBC);
+        document.getElementById("scramble").innerHTML = algsBC[randomNumberBC];
+        }
+        
+        else if (NHammerP == 0 && NSpaceshipP == 0 && NStolleryP == 0 && NPinwheelP == 0 && NPiWa3 == 0 && NPiX3 == 0 && NPiU == 0 && NL5C == 0 && NOCC == 0 && NBC == 0) {
+        document.getElementById("scramble").innerHTML = 'select a set';
+        }
+        
+        else {
+        generateByCase()
+        }
+        }
+  
+function generateBySet() {
+		lastScramble = document.getElementById("scramble").innerHTML;
+		var randomNumberBySet = Math.floor(Math.random() *NoTotalSets)
+        
+		if (randomNumberBySet == 0 && NHammerP == 1) {
+   		var randomNumberHammerP = Math.floor(Math.random() *NoAlgsHammerP);
+        document.getElementById("scramble").innerHTML = algsHammerP[randomNumberHammerP];
+        }
+        
+        else if (randomNumberBySet == 1 && NSpaceshipP == 1) {
+        var randomNumberSpaceshipP = Math.floor(Math.random() *NoAlgsSpaceshipP);
+        document.getElementById("scramble").innerHTML = algsSpaceshipP[randomNumberSpaceshipP];
+        }
+        
+        else if (randomNumberBySet == 2 && NStolleryP == 1) {
+        var randomNumberStolleryP = Math.floor(Math.random() *NoAlgsStolleryP);
+        document.getElementById("scramble").innerHTML = algsStolleryP[randomNumberStolleryP];
+        }
+        
+        else if (randomNumberBySet == 3 && NPinwheelP == 1) {
+        var randomNumberPinwheelP = Math.floor(Math.random() *NoAlgsPinwheelP);
+        document.getElementById("scramble").innerHTML = algsPinwheelP[randomNumberPinwheelP];
+        }
+        
+        else if (randomNumberBySet == 4 && NPiWa3 == 1) {
+        var randomNumberPiWa3 = Math.floor(Math.random() *NoAlgsPiWa3);
+        document.getElementById("scramble").innerHTML = algsPiWa3[randomNumberPiWa3];
+        }
+        
+        else if (randomNumberBySet == 5 && NPiX3 == 1) {
+		var randomNumberPiX3 = Math.floor(Math.random() * NoAlgsPiX3);
+		document.getElementById("scramble").innerHTML = algsPiX3[randomNumberPiX3];
+		}
+        
+        else if (randomNumberBySet == 6 && NPiU == 1) {
+        var randomNumberPiU = Math.floor(Math.random() *NoAlgsPiU);
+        document.getElementById("scramble").innerHTML = algsPiU[randomNumberPiU];
+        }
+        
+        else if (randomNumberBySet == 7 && NL5C == 1) {
+        var randomNumberL5C = Math.floor(Math.random() *NoAlgsL5C);
+        document.getElementById("scramble").innerHTML = algsL5C[randomNumberL5C];
+        }
+        
+        else if (randomNumberBySet == 8 && NOCC == 1) {
+        var randomNumberOCC = Math.floor(Math.random() *NoAlgsOCC);
+        document.getElementById("scramble").innerHTML = algsOCC[randomNumberOCC];
+        }
+        
+        else if (randomNumberBySet == 9 && NBC == 1) {
+        var randomNumberBC = Math.floor(Math.random() *NoAlgsBC);
+        document.getElementById("scramble").innerHTML = algsBC[randomNumberBC];
+        }
+        
+        else if (NHammerP == 0 && NSpaceshipP == 0 && NStolleryP == 0 && NPinwheelP == 0 && NPiWa3 == 0 && NPiX3 == 0 && NPiU == 0 && NL5C == 0 && NOCC == 0 && NBC == 0) {
+        document.getElementById("scramble").innerHTML = 'select a set';
+        }
+        
+        else {
+        generateBySet()
+        }
+        
+        }
+        
+function previousScramble() {
+document.getElementById("scramble").innerHTML = lastScramble
+}
+  		
+</script>
+</html>
