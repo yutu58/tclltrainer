@@ -392,132 +392,162 @@ document.getElementById("checkBC").setAttribute('class', 'checkboxTrue')
 document.getElementById("checkBC").setAttribute('class', 'checkboxFalse')
 }
 }
+
+var PAUF;
+var PAUFs = ['U ', 'U\' ', 'U2 ', ''];
+function randomPAUF() {
+var randomNumberPAUF = Math.floor(Math.random() *4);
+PAUF = PAUFs[randomNumberPAUF]
+}
+
+var AAUF;
+var AAUFs = [' U', ' U\'', ' U2', ''];
+function randomAAUF() {
+var randomNumberAAUF = Math.floor(Math.random() *4);
+AAUF = AAUFs[randomNumberAAUF]
+}
+
+function AUF() {
+if (situ !== 'select a set') {
+document.getElementById("scramble").innerHTML = PAUF + situ + AAUF
+}
+else {
+document.getElementById("scramble").innerHTML = situ
+}
+}
+
 function generateByCase() {
-		lastScramble = document.getElementById("scramble").innerHTML
-		var randomNumberByCase = Math.floor(Math.random() *NoTotalAlgs)
-        
+		lastScramble = document.getElementById("scramble").innerHTML;
+		var randomNumberByCase = Math.floor(Math.random() *NoTotalAlgs);
+        randomPAUF();
+        randomAAUF();
+
 		if (randomNumberByCase < NoAlgsHammerP && NHammerP == 1) {
    		var randomNumberHammerP = Math.floor(Math.random() *NoAlgsHammerP);
-        document.getElementById("scramble").innerHTML = algsHammerP[randomNumberHammerP];
+        situ = algsHammerP[randomNumberHammerP];
         }
         
         else if (randomNumberByCase >= NoAlgsHammerP && randomNumberByCase < NoAlgsHammerP+NoAlgsSpaceshipP && NSpaceshipP == 1) {
         var randomNumberSpaceshipP = Math.floor(Math.random() *NoAlgsSpaceshipP);
-        document.getElementById("scramble").innerHTML = algsSpaceshipP[randomNumberSpaceshipP];
+        situ = algsSpaceshipP[randomNumberSpaceshipP];
         }
         
         else if (randomNumberByCase >= NoAlgsHammerP+NoAlgsSpaceshipP && randomNumberByCase < NoAlgsHammerP+NoAlgsSpaceshipP+NoAlgsStolleryP && NStolleryP == 1) {
         var randomNumberStolleryP = Math.floor(Math.random() *NoAlgsStolleryP);
-        document.getElementById("scramble").innerHTML = algsStolleryP[randomNumberStolleryP];
+        situ = algsStolleryP[randomNumberStolleryP];
         }
         
-        else if (randomNumberByCase >= 20 && randomNumberByCase < 24 && NPinwheelP == 1) {
+        else if (randomNumberByCase >= NoAlgsHammerP+NoAlgsSpaceshipP+NoAlgsStolleryP && randomNumberByCase < NoAlgsHammerP+NoAlgsSpaceshipP+NoAlgsStolleryP+NoAlgsPinwheelP && NPinwheelP == 1) {
         var randomNumberPinwheelP = Math.floor(Math.random() *NoAlgsPinwheelP);
-        document.getElementById("scramble").innerHTML = algsPinwheelP[randomNumberPinwheelP];
+        situ = algsPinwheelP[randomNumberPinwheelP];
         }
         
         else if (randomNumberByCase >= 24 && randomNumberByCase < 28 && NPiWa3 == 1) {
         var randomNumberPiWa3 = Math.floor(Math.random() *NoAlgsPiWa3);
-        document.getElementById("scramble").innerHTML = algsPiWa3[randomNumberPiWa3];
+        situ = algsPiWa3[randomNumberPiWa3];
         }
         
         else if (randomNumberByCase >=28 && randomNumberByCase < 32 && NPiX3 == 1) {
 		var randomNumberPiX3 = Math.floor(Math.random() * NoAlgsPiX3);
-		document.getElementById("scramble").innerHTML = algsPiX3[randomNumberPiX3];
+		situ = algsPiX3[randomNumberPiX3];
 		}
         
         else if (randomNumberByCase >= 32 && randomNumberByCase < 44 && NPiU == 1) {
         var randomNumberPiU = Math.floor(Math.random() *NoAlgsPiU);
-        document.getElementById("scramble").innerHTML = algsPiU[randomNumberPiU];
+		situ = algsPiU[randomNumberPiU];
         }
         
         else if (randomNumberByCase >= 44 && randomNumberByCase < 50 && NL5C == 1) {
         var randomNumberL5C = Math.floor(Math.random() *NoAlgsL5C);
-        document.getElementById("scramble").innerHTML = algsL5C[randomNumberL5C];
+        situ = algsL5C[randomNumberL5C];
         }
         
         else if (randomNumberByCase >= 50 && randomNumberByCase < 56 && NOCC == 1) {
         var randomNumberOCC = Math.floor(Math.random() *NoAlgsOCC);
-        document.getElementById("scramble").innerHTML = algsOCC[randomNumberOCC];
+        situ = algsOCC[randomNumberOCC];
         }
         
         else if (randomNumberByCase >= 56 && randomNumberByCase < 64 && NBC == 1) {
         var randomNumberBC = Math.floor(Math.random() *NoAlgsBC);
-        document.getElementById("scramble").innerHTML = algsBC[randomNumberBC];
+        situ = algsBC[randomNumberBC];
         }
         
         else if (NHammerP == 0 && NSpaceshipP == 0 && NStolleryP == 0 && NPinwheelP == 0 && NPiWa3 == 0 && NPiX3 == 0 && NPiU == 0 && NL5C == 0 && NOCC == 0 && NBC == 0) {
-        document.getElementById("scramble").innerHTML = 'select a set';
+       	situ = 'select a set';
         }
         
         else {
         generateByCase()
-        }
-        }
+        } 
+        AUF()
+		}
   
 function generateBySet() {
 		lastScramble = document.getElementById("scramble").innerHTML;
 		var randomNumberBySet = Math.floor(Math.random() *NoTotalSets)
+        randomPAUF();
+        randomAAUF();
         
 		if (randomNumberBySet == 0 && NHammerP == 1) {
    		var randomNumberHammerP = Math.floor(Math.random() *NoAlgsHammerP);
-        document.getElementById("scramble").innerHTML = algsHammerP[randomNumberHammerP];
+        situ = algsHammerP[randomNumberHammerP];
         }
         
         else if (randomNumberBySet == 1 && NSpaceshipP == 1) {
         var randomNumberSpaceshipP = Math.floor(Math.random() *NoAlgsSpaceshipP);
-        document.getElementById("scramble").innerHTML = algsSpaceshipP[randomNumberSpaceshipP];
+        situ = algsSpaceshipP[randomNumberSpaceshipP];
         }
         
         else if (randomNumberBySet == 2 && NStolleryP == 1) {
         var randomNumberStolleryP = Math.floor(Math.random() *NoAlgsStolleryP);
-        document.getElementById("scramble").innerHTML = algsStolleryP[randomNumberStolleryP];
+        situ = algsStolleryP[randomNumberStolleryP];
         }
         
         else if (randomNumberBySet == 3 && NPinwheelP == 1) {
         var randomNumberPinwheelP = Math.floor(Math.random() *NoAlgsPinwheelP);
-        document.getElementById("scramble").innerHTML = algsPinwheelP[randomNumberPinwheelP];
+        situ = algsPinwheelP[randomNumberPinwheelP];
         }
         
         else if (randomNumberBySet == 4 && NPiWa3 == 1) {
         var randomNumberPiWa3 = Math.floor(Math.random() *NoAlgsPiWa3);
-        document.getElementById("scramble").innerHTML = algsPiWa3[randomNumberPiWa3];
+        situ = algsPiWa3[randomNumberPiWa3];
         }
         
         else if (randomNumberBySet == 5 && NPiX3 == 1) {
 		var randomNumberPiX3 = Math.floor(Math.random() * NoAlgsPiX3);
-		document.getElementById("scramble").innerHTML = algsPiX3[randomNumberPiX3];
+		situ = algsPiX3[randomNumberPiX3];
 		}
         
         else if (randomNumberBySet == 6 && NPiU == 1) {
         var randomNumberPiU = Math.floor(Math.random() *NoAlgsPiU);
-        document.getElementById("scramble").innerHTML = algsPiU[randomNumberPiU];
+        situ = algsPiU[randomNumberPiU];
         }
         
         else if (randomNumberBySet == 7 && NL5C == 1) {
         var randomNumberL5C = Math.floor(Math.random() *NoAlgsL5C);
-        document.getElementById("scramble").innerHTML = algsL5C[randomNumberL5C];
+        situ = algsL5C[randomNumberL5C];
         }
         
         else if (randomNumberBySet == 8 && NOCC == 1) {
         var randomNumberOCC = Math.floor(Math.random() *NoAlgsOCC);
-        document.getElementById("scramble").innerHTML = algsOCC[randomNumberOCC];
+        situ = algsOCC[randomNumberOCC];
         }
         
         else if (randomNumberBySet == 9 && NBC == 1) {
         var randomNumberBC = Math.floor(Math.random() *NoAlgsBC);
-        document.getElementById("scramble").innerHTML = algsBC[randomNumberBC];
+        situ = algsBC[randomNumberBC];
         }
         
         else if (NHammerP == 0 && NSpaceshipP == 0 && NStolleryP == 0 && NPinwheelP == 0 && NPiWa3 == 0 && NPiX3 == 0 && NPiU == 0 && NL5C == 0 && NOCC == 0 && NBC == 0) {
-        document.getElementById("scramble").innerHTML = 'select a set';
+        situ = 'select a set';
         }
         
         else {
         generateBySet()
         }
-        
+        AUF()
         }
+        
         
 function previousScramble() {
 document.getElementById("scramble").innerHTML = lastScramble
